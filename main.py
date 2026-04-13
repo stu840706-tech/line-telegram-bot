@@ -8,8 +8,11 @@ LINE_TOKEN = os.environ.get("LINE_TOKEN")
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
-@app.route("/webhook", methods=["POST"])
+@app.route("/webhook", methods=["GET", "POST"])
 def webhook():
+    if request.method == "GET":
+        return jsonify({"status": "ok"}), 200
+    
     data = request.json
     events = data.get("events", [])
     
