@@ -12,6 +12,10 @@ TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 # 記錄已處理過的 message ID，防止重複傳送
 processed_ids = set()
 
+@app.route("/", methods=["GET"])
+def health():
+    return jsonify({"status": "ok"}), 200
+
 @app.route("/webhook", methods=["GET", "POST"])
 def webhook():
     if request.method == "GET":
